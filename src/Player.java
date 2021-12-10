@@ -1,5 +1,5 @@
 import java.util.Locale;
-
+// Parent class of Computer and User
 public abstract class Player {
     private String name;
     private GameChoice choice;
@@ -19,5 +19,9 @@ public abstract class Player {
     public GameChoice getChoice() {
         return choice;
     }
+
+    // This method will have 2 different implementation
+    // One for computer
+    // One for user
     public abstract void selectChoice();
 }

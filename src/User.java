@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+// Inherits from Player abstract class
 public class User extends Player {
     private static final Scanner scanner;
     static {
@@ -7,6 +8,8 @@ public class User extends Player {
     }
 
 
+    // Display 3 choices: Rock, paper, or scissors
+    // Ask user for an integer input of 1,2,3
     @Override
     public void selectChoice() {
         System.out.println("==============");
@@ -33,6 +36,9 @@ public class User extends Player {
         }
     }
 
+    // Validate the users input
+    // Make sure the user only enters an integer
+    // Return that integer
     public int validateInput(){
         while(!scanner.hasNextInt()) {
             System.out.print("Invalid input. Please enter a number: ");

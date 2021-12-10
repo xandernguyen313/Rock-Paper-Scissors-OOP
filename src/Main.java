@@ -6,8 +6,6 @@ public class Main {
 
 
         Game game = new Game();
-        game.displayMainMenu();
-        game.selectMainMenuChoice();
 
     }
 }

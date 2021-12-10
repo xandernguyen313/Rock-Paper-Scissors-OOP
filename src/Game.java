@@ -1,21 +1,28 @@
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Scanner;
-import 
+
+// Game Class will handle flow of the game
 public class Game implements GameController {
+    // Has-A relationship
     public Optional<Player> winner;
-    private Computer computer;
-    private User user1;
-    private User user2;
+    private final Computer computer;
+    private final User user1;
+    private final User user2;
+    private final Score userVsUserHistory;
+    private final Score userVsComputerHistory;
     private static final Scanner scanner;
-    private Score userVsUserHistory;
-    private Score userVsComputerHistory;
     private boolean gameOver = false;
 
+    // Belongs to the Class
+    // Only initialize once
     static {
         scanner = new Scanner(System.in);
     }
 
+    // Constructor
+    // Create instances of the Class Computer, User, and Score.
+    // and start the game.
     public Game(){
         computer = new Computer();
         user1 = new User();
@@ -25,8 +32,13 @@ public class Game implements GameController {
         user2.setName("Player 2");
         userVsUserHistory = new Score(user1, user2);
         userVsComputerHistory = new Score(user1, computer);
+        startGame();
     }
 
+    public void startGame(){
+        displayMainMenu();
+        selectMainMenuChoice();
+    }
     @Override
     public void welcome() {
         System.out.println("====================================");
@@ -46,14 +58,17 @@ public class Game implements GameController {
         System.out.println();
     }
 
+    // Record users input
+    // and call appropriate methods
     @Override
     public void selectMainMenuChoice(){
+        // Validate users choice
         int choice = validateInput();
+
         switch (choice) {
             case 1:
                 user1.selectChoice();
                 computer.selectChoice();
-
                 checkForWinner(user1, computer, userVsComputerHistory);
                 displayResult(user1, computer);
                 break;
@@ -79,12 +94,16 @@ public class Game implements GameController {
                 System.out.println(choice + " is not a valid choice. Try Again!");
         }
 
+        // Keep looping until user selects option 4 to exit
         while(!gameOver) {
             displayMainMenu();
             selectMainMenuChoice();
         }
     }
 
+    // Validate the users input
+    // Make sure the user only enters an integer
+    // Return that integer
     public int validateInput(){
         while(!scanner.hasNextInt()) {
             System.out.print("Invalid input. Please enter a number: ");
@@ -93,6 +112,9 @@ public class Game implements GameController {
         return scanner.nextInt();
     }
 
+    // This method asks for 2 Player objects
+    // E.G: user and computer objects or user1 vs user2
+    // and display the result of that game
     @Override
     public void displayResult(Player player, Player otherPlayer) {
         System.out.println("===============");
@@ -102,6 +124,10 @@ public class Game implements GameController {
         System.out.println();
     }
 
+    // Check one player's choice against other player's choice
+    // if one wins,
+    // then increment number of wins for that player
+    // the winner is an Optional because if it's a tie, winner is set to null.
     @Override
     public void checkForWinner(Player player, Player otherPlayer, Score history) {
         GameChoice player1 = player.getChoice();
@@ -115,10 +141,6 @@ public class Game implements GameController {
             winner = Optional.of(otherPlayer);
             history.addToRecord(otherPlayer);
         }
-    }
-
-    public void clear() {
-        getConsoleView().clear();
     }
 
 

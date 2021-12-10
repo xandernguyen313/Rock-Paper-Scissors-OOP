@@ -1,3 +1,4 @@
+// Specify what methods need to be implemented for the Game.
 public interface GameController {
     public void welcome();
     public void displayMainMenu();
