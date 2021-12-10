@@ -1,8 +1,8 @@
 import java.util.Locale;
 
-public class Player {
+public abstract class Player {
     private String name;
-    private String choice;
+    private GameChoice choice;
 
     public void setName(String name) {
         this.name = name;
@@ -12,11 +12,12 @@ public class Player {
         return name;
     }
 
-    public void setChoice(String choice){
-        this.choice = choice.toLowerCase();
+    public void setChoice(GameChoice choice){
+        this.choice = choice;
     }
 
-    public String getChoice() {
+    public GameChoice getChoice() {
         return choice;
     }
+    public abstract void selectChoice();
 }
