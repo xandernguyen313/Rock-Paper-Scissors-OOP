@@ -15,7 +15,7 @@ public class User extends Player {
         System.out.println("2. Paper");
         System.out.println("3. Scissors");
         System.out.println();
-        int choice = scanner.nextInt();
+        int choice = validateInput();
 
         switch(choice){
             case 1:
@@ -31,6 +31,14 @@ public class User extends Player {
                 System.out.println("Invalid Choice!");
                 selectChoice();
         }
+    }
+
+    public int validateInput(){
+        while(!scanner.hasNextInt()) {
+            System.out.print("Invalid input. Please enter a number: ");
+            scanner.next();
+        }
+        return scanner.nextInt();
     }
 
 }
